@@ -32,7 +32,7 @@ class InterPretr:
         s1 = set(self.vertices)
         s2 = set(self.edges.keys())
 
-        print('Total no. of languages: ', s1-s2)
+        print('Total no. of languages: ', len(s1-s2))
 
         print('List of candidates:')
         for candidate in s2:

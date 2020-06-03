@@ -1,4 +1,4 @@
-class InterPretr:
+class InterPreter:
 
     def __init__(self):
         self.vertices = [] #list containing languages and interpreter
@@ -59,6 +59,6 @@ class InterPretr:
 
 
 if __name__ == '__main__':
-    ob = InterPretr()
+    ob = InterPreter()
     ob.readInputFile('../resources/Sample inputPS7.txt')
     ob.showAll()

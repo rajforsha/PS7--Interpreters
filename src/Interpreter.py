@@ -30,16 +30,15 @@ class Interpreter:
 
 
     def readInputFile(self, filepath):
-        with open(filepath) as f:
-            lines = f.readlines()
-            for line in lines:
-                values = line.strip('\n').split('/')
-                name = values[0]
-                self.interpreters.append(name.strip())
-                self.addLanguagesOrInterpreters(name)
-                for i in range(1, len(values)):
-                    self.linkInterpretersToLangauages(name, values[i])
-                    self.addLanguagesOrInterpreters(values[i])
+        data = self.utils.readFromInputFile(filepath)
+        for line in data:
+            values = line.strip('\n').split('/')
+            name = values[0]
+            self.interpreters.append(name.strip())
+            self.addLanguagesOrInterpreters(name)
+            for i in range(1, len(values)):
+                self.linkInterpretersToLangauages(name, values[i])
+                self.addLanguagesOrInterpreters(values[i])
 
 
     def getAllLanguages(self):

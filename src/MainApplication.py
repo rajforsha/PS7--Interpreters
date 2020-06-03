@@ -1,16 +1,17 @@
 from Interpreter import Interpreter
+from Utils import Utils
 
 class MainApplication:
 
     def __init__(self):
+        self.utils = Utils()
         print('MainApplication')
 
     def readPromptFileAndReturnList(self, filepath):
         result = []
-        with open(filepath) as f:
-            lines = f.readlines()
-            for line in lines:
-                result.append(line.strip().strip('\n'))
+        data = self.utils.readFromInputFile(filepath)
+        for line in data:
+            result.append(line.strip().strip('\n'))
         return result
 
     def executeMethodForObject(self, object, commandList):

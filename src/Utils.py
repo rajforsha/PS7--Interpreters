@@ -7,3 +7,10 @@ class Utils:
         with open(self.filepath, 'a') as file:
             file.write(data + '\n')
             file.close()
+
+    def readFromInputFile(self, filepath):
+        data = None
+        with open(filepath) as file:
+            data = file.readlines()
+        file.close()
+        return data

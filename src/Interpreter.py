@@ -1,9 +1,11 @@
-class InterPreter:
+from Utils import Utils
+class Interpreter:
 
     def __init__(self):
         self.vertices = [] #list containing languages and interpreter
         self.edges = {} #adjency matrix of edges linking interpreters to languages
         self.interpreters = [] #need to maintain since vertices contain both the langauge and interpreter
+        self.utils = Utils()
 
     def addLanguagesOrInterpreters(self, val):
         val = val.strip()
@@ -46,29 +48,28 @@ class InterPreter:
         return s1-s2
 
     def printGraph(self):
+        self.utils.writeToOutputFile('--------Function printGraph--------')
         for key,val in self.edges.items():
-            print(key, val)
+            self.utils.writeToOutputFile(key, val)
 
     def showAll(self):
-        print('--------Function showAll--------')
+        self.utils.writeToOutputFile('--------Function showAll--------')
 
-        print('Total no. of candidates: ', len(self.interpreters))
-        print('Total no. of languages: ', len(self.getAllLanguages()))
+        self.utils.writeToOutputFile('Total no. of candidates: ' + str(len(self.interpreters)))
+        self.utils.writeToOutputFile('Total no. of languages: '+ str(len(self.getAllLanguages())))
 
-        print('List of candidates:')
+        self.utils.writeToOutputFile('List of candidates:')
         for candidate in self.interpreters:
-            print(candidate)
+            self.utils.writeToOutputFile(candidate)
 
-        print('List of languages:')
+        self.utils.writeToOutputFile('List of languages:')
 
         for language in self.getAllLanguages():
-            print(language)
+            self.utils.writeToOutputFile(language)
 
-    # def displayHireList(self):
-
-if __name__ == '__main__':
-    ob = InterPreter()
-    ob.readInputFile('../resources/Sample inputPS7.txt')
-    ob.showAll()
-    ob.printGraph()
-    # ob.displayHireList()
+    def displayCandidates(self, lang):
+        list = self.edges.get(lang)
+        self.utils.writeToOutputFile('--------Function displayCandidates--------')
+        self.utils.writeToOutputFile('List of Candidates who can speak '+ lang +':')
+        for candidate in list:
+            self.utils.writeToOutputFile(candidate)

@@ -5,11 +5,14 @@ class InterPretr:
         self.edges = {} #adjency matrix of edges linking interpreters to languages
 
     def addLanguagesOrInterpreters(self, val):
+        val = val.strip()
         if val not in self.vertices:
             self.vertices.append(val)
 
 
     def linkInterpretersToLangauages(self, interpreter, language):
+        interpreter = interpreter.strip()
+        language = language.strip()
         if self.edges.get(interpreter) is None:
             self.edges[interpreter]=[language]
         else:

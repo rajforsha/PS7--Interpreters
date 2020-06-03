@@ -49,7 +49,7 @@ class Interpreter:
     def printGraph(self):
         self.utils.writeToOutputFile('--------Function printGraph--------')
         for key,val in self.edges.items():
-            self.utils.writeToOutputFile(key, val)
+            print(key, val)
 
     def showAll(self):
         self.utils.writeToOutputFile('--------Function showAll--------')
@@ -72,3 +72,26 @@ class Interpreter:
         self.utils.writeToOutputFile('List of Candidates who can speak '+ lang +':')
         for candidate in list:
             self.utils.writeToOutputFile(candidate)
+
+    def findDirectTranslator(self, langA, langB):
+        self.utils.writeToOutputFile('--------Function findDirectTranslator --------')
+        self.utils.writeToOutputFile('LanguageA: '+ langA)
+        self.utils.writeToOutputFile('LanguageB: ' + langB)
+        candidates = self.edges.get(langA)
+        stack = []
+        for candidate in candidates:
+            stack.append(candidate)
+
+        result = None
+        while(len(stack)>0):
+            item = stack.pop()
+            langauges = self.edges.get(item)
+            if(langB in langauges):
+                result = candidate
+                break
+
+        if(result is None):
+            self.utils.writeToOutputFile('Direct Translator: No. ')
+        else:
+            self.utils.writeToOutputFile('Direct Translator: Yes,'+ result+' can translate.')
+

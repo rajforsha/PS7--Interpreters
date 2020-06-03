@@ -15,16 +15,17 @@ Sanjay
 Surya
 Zubin
 List of languages:
-English
-Telugu
-Marathi
-Gujarati
-Bengali
-Kannada
-Malayalam
-Hindi
 Punjabi
+Marathi
+Kannada
+Gujarati
+English
 Tamil
+Bengali
+Malayalam
+Telugu
+Hindi
+--------Function printGraph--------
 --------Function displayCandidates--------
 List of Candidates who can speak Hindi:
 Manasa
@@ -39,3 +40,11 @@ Venkat
 Paul
 Rohan
 Surya
+--------Function findDirectTranslator --------
+LanguageA: English
+LanguageB: Malayalam
+Direct Translator: No. 
+--------Function findDirectTranslator --------
+LanguageA: Hindi
+LanguageB: Gujarati
+Direct Translator: Yes,Zubin can translate.

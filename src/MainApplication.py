@@ -17,12 +17,14 @@ class MainApplication:
     def executeMethodForObject(self, object, commandList):
         object.readInputFile('../resources/Sample inputPS7.txt')
         object.showAll()
+        object.printGraph()
         for val in commandList:
             if('searchLanguage' in val):
                 arr = val.split(':')
                 object.displayCandidates(arr[1].strip())
             elif('DirectTranslate' in val):
-                print('DirectTranslate')
+                arr = val.split(':')
+                object.findDirectTranslator(arr[1].strip(), arr[2].strip())
             elif('TransRelation' in val):
                 print('TransRelation')
             else:

@@ -90,6 +90,7 @@ class Interpreter:
         outputResultList.append('LanguageA: '+ langA)
         outputResultList.append('LanguageB: ' + langB)
         candidates = self.edges.get(langA)
+        #used dfs to iterate through langA and looking whether it is connected to the langB
         stack = []
         for candidate in candidates:
             stack.append(candidate)
@@ -110,12 +111,51 @@ class Interpreter:
         # write to output file
         self.utils.writeToOutputFile(outputResultList)
 
+    def dfs(self, stack, visited, path, langB):
+        if(len(stack)>0):
+            item = stack.pop()
+            if (item not in visited):
+                path.append(item)
+                visited.append(item)
+                vertices = self.edges.get(item)
+                for vertex in vertices:
+                    if(vertex not in visited):
+                        stack.append(vertex)
+
+                if (item == langB):
+                    return True
+            return self.dfs(stack, visited, path, langB)
+        else:
+            return False
+
     def findTransRelation(self, langA, langB):
         outputResultList = []
         outputResultList.append('--------Function findTransRelation --------')
         outputResultList.append('LanguageA: '+ langA)
         outputResultList.append('LanguageB: ' + langB)
 
+        #use dfs to iterate
+        visited = [] #to keep track of which of the vertices
+        stack = []
+        path = [] # to track the path through vertices
+
+        visited.append(langA)
+        path.append(langA)
+        connectedVertices = self.edges.get(langA)
+        for vertices in connectedVertices:
+            stack.append(vertices)
+
+        found = self.dfs(stack, visited, path, langB)
+        pathString = None
+        if(found):
+            for val in path:
+                if(pathString is None):
+                    pathString = str(val)
+                else:
+                    pathString = pathString + '>'+ val
+            outputResultList.append('Related: Yes, '+ pathString)
+        else:
+            outputResultList.append('Related: No, ')
         # write to output file
         self.utils.writeToOutputFile(outputResultList)
 

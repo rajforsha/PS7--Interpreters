@@ -7,6 +7,7 @@ class Utils:
         with open(self.filepath, 'a') as file:
             for line in data:
                 file.write(line + '\n')
+            file.write(line + '\n\n')
             file.close()
 
     def readFromInputFile(self, filepath):

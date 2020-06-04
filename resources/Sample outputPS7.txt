@@ -15,17 +15,17 @@ Sanjay
 Surya
 Zubin
 List of languages:
-Telugu
-Kannada
-Marathi
+Tamil
 Gujarati
 English
-Tamil
-Hindi
 Bengali
+Punjabi
+Kannada
+Hindi
+Marathi
+Telugu
 Malayalam
-Punjabi
-Punjabi
+
 
 --------Function displayCandidates--------
 List of Candidates who can speak Hindi:
@@ -35,7 +35,7 @@ Nisha
 Amjad
 Parul
 Zubin
-Zubin
+
 
 --------Function displayCandidates--------
 List of Candidates who can speak Tamil:
@@ -43,29 +43,29 @@ Venkat
 Paul
 Rohan
 Surya
-Surya
+
 
 --------Function findDirectTranslator --------
 LanguageA: English
 LanguageB: Malayalam
 Direct Translator: No. 
-Direct Translator: No. 
+
 
 --------Function findDirectTranslator --------
 LanguageA: Hindi
 LanguageB: Gujarati
 Direct Translator: Yes,Zubin can translate.
-Direct Translator: Yes,Zubin can translate.
+
 
 --------Function findTransRelation --------
 LanguageA: English
 LanguageB: Malayalam
 Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish>Gujarati>Amjad>Manasa>Nisha>Marathi>Rahul>Paul>Telugu>Rohan>Malayalam
-Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish>Gujarati>Amjad>Manasa>Nisha>Marathi>Rahul>Paul>Telugu>Rohan>Malayalam
+
 
 --------Function findTransRelation --------
 LanguageA: English
 LanguageB: Gujarati
 Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish>Gujarati
-Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish>Gujarati
+
 

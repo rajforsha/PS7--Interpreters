@@ -5,7 +5,6 @@ class MainApplication:
 
     def __init__(self):
         self.utils = Utils()
-        print('MainApplication')
 
     def readPromptFileAndReturnList(self, filepath):
         result = []
@@ -17,7 +16,6 @@ class MainApplication:
     def executeMethodForObject(self, object, commandList):
         object.readInputFile('../resources/Sample inputPS7.txt')
         object.showAll()
-        object.printGraph()
         for val in commandList:
             if('searchLanguage' in val):
                 arr = val.split(':')
@@ -26,7 +24,8 @@ class MainApplication:
                 arr = val.split(':')
                 object.findDirectTranslator(arr[1].strip(), arr[2].strip())
             elif('TransRelation' in val):
-                print('TransRelation')
+                arr = val.split(':')
+                object.findTransRelation(arr[1].strip(), arr[2].strip())
             else:
                 print('invalid command')
 

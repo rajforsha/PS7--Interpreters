@@ -47,36 +47,48 @@ class Interpreter:
         return s1-s2
 
     def printGraph(self):
-        self.utils.writeToOutputFile('--------Function printGraph--------')
+        outputResultList = []
+        outputResultList.append('--------Function printGraph--------')
         for key,val in self.edges.items():
-            print(key, val)
+            outputResultList.append(key +'->'+str(val))
+
+        # write to output file
+        self.utils.writeToOutputFile(outputResultList)
 
     def showAll(self):
-        self.utils.writeToOutputFile('--------Function showAll--------')
+        outputResultList = []
+        outputResultList.append('--------Function showAll--------')
+        outputResultList.append('Total no. of candidates: ' + str(len(self.interpreters)))
+        outputResultList.append('Total no. of languages: '+ str(len(self.getAllLanguages())))
 
-        self.utils.writeToOutputFile('Total no. of candidates: ' + str(len(self.interpreters)))
-        self.utils.writeToOutputFile('Total no. of languages: '+ str(len(self.getAllLanguages())))
-
-        self.utils.writeToOutputFile('List of candidates:')
+        outputResultList.append('List of candidates:')
         for candidate in self.interpreters:
-            self.utils.writeToOutputFile(candidate)
+            outputResultList.append(candidate)
 
-        self.utils.writeToOutputFile('List of languages:')
+        outputResultList.append('List of languages:')
 
         for language in self.getAllLanguages():
-            self.utils.writeToOutputFile(language)
+            outputResultList.append(language)
+
+        # write to output file
+        self.utils.writeToOutputFile(outputResultList)
 
     def displayCandidates(self, lang):
+        outputResultList = []
         list = self.edges.get(lang)
-        self.utils.writeToOutputFile('--------Function displayCandidates--------')
-        self.utils.writeToOutputFile('List of Candidates who can speak '+ lang +':')
+        outputResultList.append('--------Function displayCandidates--------')
+        outputResultList.append('List of Candidates who can speak '+ lang +':')
         for candidate in list:
-            self.utils.writeToOutputFile(candidate)
+            outputResultList.append(candidate)
+
+        # write to output file
+        self.utils.writeToOutputFile(outputResultList)
 
     def findDirectTranslator(self, langA, langB):
-        self.utils.writeToOutputFile('--------Function findDirectTranslator --------')
-        self.utils.writeToOutputFile('LanguageA: '+ langA)
-        self.utils.writeToOutputFile('LanguageB: ' + langB)
+        outputResultList = []
+        outputResultList.append('--------Function findDirectTranslator --------')
+        outputResultList.append('LanguageA: '+ langA)
+        outputResultList.append('LanguageB: ' + langB)
         candidates = self.edges.get(langA)
         stack = []
         for candidate in candidates:
@@ -91,7 +103,22 @@ class Interpreter:
                 break
 
         if(result is None):
-            self.utils.writeToOutputFile('Direct Translator: No. ')
+            outputResultList.append('Direct Translator: No. ')
         else:
-            self.utils.writeToOutputFile('Direct Translator: Yes,'+ result+' can translate.')
+            outputResultList.append('Direct Translator: Yes,'+ result+' can translate.')
+
+        # write to output file
+        self.utils.writeToOutputFile(outputResultList)
+
+    def findTransRelation(self, langA, langB):
+        outputResultList = []
+        outputResultList.append('--------Function findTransRelation --------')
+        outputResultList.append('LanguageA: '+ langA)
+        outputResultList.append('LanguageB: ' + langB)
+
+        # write to output file
+        self.utils.writeToOutputFile(outputResultList)
+
+
+
 

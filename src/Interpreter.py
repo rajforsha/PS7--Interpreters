@@ -202,7 +202,7 @@ class Interpreter:
         outputResultList.append('No of candidates required to cover all languages: '+ str(len(hireList)))
         for hire in hireList:
             value = self.edges.get(hire)
-            outputResultList.append(hire + '/'+ '/'.join(value))
+            outputResultList.append(hire + ' / '+ ' / '.join(value))
 
         outputResultList.append('-----------------------------------------')
         # write to output file

@@ -19,31 +19,31 @@ Zubin
 
 
 List of languages:
+Punjabi
+Marathi
+English
+Bengali
+Hindi
 Kannada
 Tamil
-English
+Gujarati
 Malayalam
 Telugu
-Hindi
-Marathi
-Gujarati
-Punjabi
-Bengali
 -----------------------------------------
 
 
 --------Function displayHireList--------
 No of candidates required to cover all languages: 10
-Venkat/English/Kannada/Tamil/Telugu
-Rohan/Telugu/Tamil/Malayalam
-Surya/Malayalam/Tamil
-Paul/Malayalam/Marathi/Tamil/Telugu
-Rahul/Marathi
-Nisha/Bengali/English/Marathi/Hindi
-Zubin/Hindi/English
-Sanjay/Bengali/English
-Amjad/English/Hindi/Gujarati
-Harish/Punjabi/Gujarati/English/Hindi
+Parul / Hindi / Punjabi
+Zubin / Hindi / English
+Sanjay / Bengali / English
+Nisha / Bengali / English / Marathi / Hindi
+Rahul / Marathi
+Paul / Malayalam / Marathi / Tamil / Telugu
+Rohan / Telugu / Tamil / Malayalam
+Surya / Malayalam / Tamil
+Venkat / English / Kannada / Tamil / Telugu
+Amjad / English / Hindi / Gujarati
 -----------------------------------------
 
 

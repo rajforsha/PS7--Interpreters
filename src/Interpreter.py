@@ -188,8 +188,9 @@ class Interpreter:
             if(item not in visited):
                 visited.append(item)
                 if (item not in langauges and item not in hireList):  # it's a candidate and not added to hirelist
-                    hireList.append(item)
-                elif (item in langauges and item in allLanguageCovered):
+                    if(self.hasAllLanguagesOfCurrentInterpreterAlreadyCovered(item, hireList)> 0):
+                        hireList.append(item)
+                elif (item in langauges and item in allLanguageCovered): #remove if its langauage and has been covered
                     allLanguageCovered.pop(allLanguageCovered.index(item))
                 vertices = self.edges.get(item)
                 for vertex in vertices:
@@ -208,3 +209,20 @@ class Interpreter:
         # write to output file
         self.utils.writeToOutputFile(outputResultList)
 
+    def hasAllLanguagesOfCurrentInterpreterAlreadyCovered(self, item, hireList):
+        if(len(hireList) < 1):
+            return True
+        languages = self.edges.get(item)
+        languagesCoveredSofar = []
+        for interpreter in hireList:
+            values = self.edges.get(interpreter)
+            for val in values:
+                languagesCoveredSofar.append(val)
+
+        s1 = set(languages)
+        s2 = set(languagesCoveredSofar)
+
+        if(len(s1-s2)>0):
+            return True
+        else:
+            return False

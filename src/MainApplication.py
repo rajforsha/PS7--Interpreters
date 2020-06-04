@@ -17,7 +17,9 @@ class MainApplication:
         object.readInputFile('../resources/Sample inputPS7.txt')
         object.showAll()
         for val in commandList:
-            if('searchLanguage' in val):
+            if('showMinList' in val):
+                object.displayHireList()
+            elif('searchLanguage' in val):
                 arr = val.split(':')
                 object.displayCandidates(arr[1].strip())
             elif('DirectTranslate' in val):

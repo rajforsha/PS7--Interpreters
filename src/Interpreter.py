@@ -60,16 +60,19 @@ class Interpreter:
         outputResultList.append('--------Function showAll--------')
         outputResultList.append('Total no. of candidates: ' + str(len(self.interpreters)))
         outputResultList.append('Total no. of languages: '+ str(len(self.getAllLanguages())))
+        outputResultList.append('\n')
 
         outputResultList.append('List of candidates:')
         for candidate in self.interpreters:
             outputResultList.append(candidate)
 
+        outputResultList.append('\n')
         outputResultList.append('List of languages:')
 
         for language in self.getAllLanguages():
             outputResultList.append(language)
 
+        outputResultList.append('-----------------------------------------')
         # write to output file
         self.utils.writeToOutputFile(outputResultList)
 
@@ -81,6 +84,7 @@ class Interpreter:
         for candidate in list:
             outputResultList.append(candidate)
 
+        outputResultList.append('-----------------------------------------')
         # write to output file
         self.utils.writeToOutputFile(outputResultList)
 
@@ -108,6 +112,7 @@ class Interpreter:
         else:
             outputResultList.append('Direct Translator: Yes,'+ result+' can translate.')
 
+        outputResultList.append('-----------------------------------------')
         # write to output file
         self.utils.writeToOutputFile(outputResultList)
 
@@ -156,9 +161,50 @@ class Interpreter:
             outputResultList.append('Related: Yes, '+ pathString)
         else:
             outputResultList.append('Related: No, ')
+        outputResultList.append('-----------------------------------------')
         # write to output file
         self.utils.writeToOutputFile(outputResultList)
 
 
+    def displayHireList(self):
+        outputResultList = []
+        outputResultList.append('--------Function displayHireList--------')
 
+        langauges = list(self.getAllLanguages())
+        allLanguageCovered = list(self.getAllLanguages())
+        visited = [] #to track track of visited vertex
+        hireList = [] #to keep count of interpreters
+        stack = []
+
+        startVertex = langauges[0]
+        visited.append(startVertex)
+        if(startVertex in langauges):
+            allLanguageCovered.pop(allLanguageCovered.index(startVertex))
+        for val in self.edges.get(startVertex):
+            stack.append(val)
+
+        while(len(stack)>0):
+            item = stack.pop()
+            if(item not in visited):
+                visited.append(item)
+                if (item not in langauges and item not in hireList):  # it's a candidate and not added to hirelist
+                    hireList.append(item)
+                elif (item in langauges and item in allLanguageCovered):
+                    allLanguageCovered.pop(allLanguageCovered.index(item))
+                vertices = self.edges.get(item)
+                for vertex in vertices:
+                    if(vertex not in visited):
+                        stack.append(vertex)
+
+            if(len(allLanguageCovered)<1):
+                break
+
+        outputResultList.append('No of candidates required to cover all languages: '+ str(len(hireList)))
+        for hire in hireList:
+            value = self.edges.get(hire)
+            outputResultList.append(hire + '/'+ '/'.join(value))
+
+        outputResultList.append('-----------------------------------------')
+        # write to output file
+        self.utils.writeToOutputFile(outputResultList)
 

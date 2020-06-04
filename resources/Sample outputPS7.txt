@@ -1,6 +1,8 @@
 --------Function showAll--------
 Total no. of candidates: 12
 Total no. of languages: 10
+
+
 List of candidates:
 Manasa
 Venkat
@@ -14,17 +16,35 @@ Rahul
 Sanjay
 Surya
 Zubin
+
+
 List of languages:
-Tamil
-Gujarati
-English
-Bengali
-Punjabi
 Kannada
+Tamil
+English
+Malayalam
+Telugu
 Hindi
 Marathi
-Telugu
-Malayalam
+Gujarati
+Punjabi
+Bengali
+-----------------------------------------
+
+
+--------Function displayHireList--------
+No of candidates required to cover all languages: 10
+Venkat/English/Kannada/Tamil/Telugu
+Rohan/Telugu/Tamil/Malayalam
+Surya/Malayalam/Tamil
+Paul/Malayalam/Marathi/Tamil/Telugu
+Rahul/Marathi
+Nisha/Bengali/English/Marathi/Hindi
+Zubin/Hindi/English
+Sanjay/Bengali/English
+Amjad/English/Hindi/Gujarati
+Harish/Punjabi/Gujarati/English/Hindi
+-----------------------------------------
 
 
 --------Function displayCandidates--------
@@ -35,6 +55,7 @@ Nisha
 Amjad
 Parul
 Zubin
+-----------------------------------------
 
 
 --------Function displayCandidates--------
@@ -43,29 +64,34 @@ Venkat
 Paul
 Rohan
 Surya
+-----------------------------------------
 
 
 --------Function findDirectTranslator --------
 LanguageA: English
 LanguageB: Malayalam
 Direct Translator: No. 
+-----------------------------------------
 
 
 --------Function findDirectTranslator --------
 LanguageA: Hindi
 LanguageB: Gujarati
 Direct Translator: Yes,Zubin can translate.
+-----------------------------------------
 
 
 --------Function findTransRelation --------
 LanguageA: English
 LanguageB: Malayalam
 Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish>Gujarati>Amjad>Manasa>Nisha>Marathi>Rahul>Paul>Telugu>Rohan>Malayalam
+-----------------------------------------
 
 
 --------Function findTransRelation --------
 LanguageA: English
 LanguageB: Gujarati
 Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish>Gujarati
+-----------------------------------------
 
 

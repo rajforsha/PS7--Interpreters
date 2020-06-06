@@ -33,11 +33,11 @@ class Interpreter:
         data = self.utils.readFromInputFile(filepath)
         for line in data:
             values = line.strip('\n').split('/')
-            name = values[0]
+            name = values[0] #first word
             self.interpreters.append(name.strip())
-            self.addLanguagesOrInterpreters(name)
+            self.addLanguagesOrInterpreters(name) #add vertices
             for i in range(1, len(values)):
-                self.linkInterpretersToLangauages(name, values[i])
+                self.linkInterpretersToLangauages(name, values[i]) #mapping interpreter to language
                 self.addLanguagesOrInterpreters(values[i])
 
 
@@ -104,7 +104,7 @@ class Interpreter:
             item = stack.pop()
             langauges = self.edges.get(item)
             if(langB in langauges):
-                result = candidate
+                result = item
                 break
 
         if(result is None):
@@ -167,6 +167,7 @@ class Interpreter:
 
 
     def displayHireList(self):
+        #dfs , grraph greegy method prims or kruskal
         outputResultList = []
         outputResultList.append('--------Function displayHireList--------')
 
@@ -188,7 +189,7 @@ class Interpreter:
             if(item not in visited):
                 visited.append(item)
                 if (item not in langauges and item not in hireList):  # it's a candidate and not added to hirelist
-                    if(self.hasAllLanguagesOfCurrentInterpreterAlreadyCovered(item, hireList)> 0):
+                    if(self.hasAllLanguagesOfCurrentInterpreterAlreadyCovered(item, hireList)):
                         hireList.append(item)
                 elif (item in langauges and item in allLanguageCovered): #remove if its langauage and has been covered
                     allLanguageCovered.pop(allLanguageCovered.index(item))

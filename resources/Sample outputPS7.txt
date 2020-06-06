@@ -19,27 +19,51 @@ Zubin
 
 
 List of languages:
-Malayalam
-Telugu
-Gujarati
 English
+Gujarati
+Malayalam
+Bengali
+Marathi
+Telugu
 Hindi
 Punjabi
-Bengali
 Tamil
 Kannada
-Marathi
 -----------------------------------------
 
 
+--------Function printGraph--------
+Manasa->['English', 'Hindi', 'Punjabi']
+English->['Manasa', 'Venkat', 'Harish', 'Nisha', 'Amjad', 'Sanjay', 'Zubin']
+Hindi->['Manasa', 'Harish', 'Nisha', 'Amjad', 'Parul', 'Zubin']
+Punjabi->['Manasa', 'Harish', 'Parul']
+Venkat->['English', 'Kannada', 'Tamil', 'Telugu']
+Kannada->['Venkat']
+Tamil->['Venkat', 'Paul', 'Rohan', 'Surya']
+Telugu->['Venkat', 'Paul', 'Rohan']
+Paul->['Malayalam', 'Marathi', 'Tamil', 'Telugu']
+Malayalam->['Paul', 'Rohan', 'Surya']
+Marathi->['Paul', 'Nisha', 'Rahul']
+Harish->['Punjabi', 'Gujarati', 'English', 'Hindi']
+Gujarati->['Harish', 'Amjad']
+Nisha->['Bengali', 'English', 'Marathi', 'Hindi']
+Bengali->['Nisha', 'Sanjay']
+Amjad->['English', 'Hindi', 'Gujarati']
+Parul->['Hindi', 'Punjabi']
+Rohan->['Telugu', 'Tamil', 'Malayalam']
+Rahul->['Marathi']
+Sanjay->['Bengali', 'English']
+Surya->['Malayalam', 'Tamil']
+Zubin->['Hindi', 'English']
+
+
 --------Function displayHireList--------
-No of candidates required to cover all languages: 7
-Surya / Malayalam / Tamil
-Rohan / Telugu / Tamil / Malayalam
-Paul / Malayalam / Marathi / Tamil / Telugu
-Nisha / Bengali / English / Marathi / Hindi
-Amjad / English / Hindi / Gujarati
+No of candidates required to cover all languages: 6
+Zubin / Hindi / English
+Parul / Hindi / Punjabi
 Harish / Punjabi / Gujarati / English / Hindi
+Nisha / Bengali / English / Marathi / Hindi
+Paul / Malayalam / Marathi / Tamil / Telugu
 Venkat / English / Kannada / Tamil / Telugu
 -----------------------------------------
 
@@ -74,7 +98,7 @@ Direct Translator: No.
 --------Function findDirectTranslator --------
 LanguageA: Hindi
 LanguageB: Gujarati
-Direct Translator: Yes,Zubin can translate.
+Direct Translator: Yes,Amjad can translate.
 -----------------------------------------
 
 

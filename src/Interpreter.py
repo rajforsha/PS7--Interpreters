@@ -1,44 +1,36 @@
 from Utils import Utils
 class Interpreter:
 
-    def __init__(self):
-        self.vertices = [] #list containing languages and interpreter
-        self.edges = {} #adjency matrix of edges linking interpreters to languages
+    def __init__(self, vertices):
+        self.vertices = vertices #list containing languages and interpreter
+        self.edges = [ [ None for i in range(vertices) ] for j in range(vertices) ] #adjency matrix of edges linking interpreters to languages
         self.interpreters = [] #need to maintain since vertices contain both the langauge and interpreter
+        self.mapping = {} #mapping vertices to integer value
         self.utils = Utils()
 
-    def addLanguagesOrInterpreters(self, val):
-        val = val.strip()
-        if val not in self.vertices:
-            self.vertices.append(val)
-
-
-    def linkInterpretersToLangauages(self, interpreter, language):
+    def addEdges(self, src, dest):
         #undirected graph, hence adding to both the ends
-        interpreter = interpreter.strip()
-        language = language.strip()
-
-        if self.edges.get(interpreter) is None:
-            self.edges[interpreter]=[language]
-        else:
-            self.edges[interpreter].append(language)
-
-        if self.edges.get(language) is None:
-            self.edges[language] = [interpreter]
-        else:
-            self.edges[language].append(interpreter)
+        self.edges[src][dest] = 1
+        self.edges[dest][src] = 1
 
 
-    def readInputFile(self, filepath):
+    def populateAdjacencyMatrixFromInputFile(self, filepath):
         data = self.utils.readFromInputFile(filepath)
+        index = 0 #used for mapping
         for line in data:
             values = line.strip('\n').split('/')
-            name = values[0] #first word
-            self.interpreters.append(name.strip())
-            self.addLanguagesOrInterpreters(name) #add vertices
+            name = values[0].strip() #first word
+            self.mapping[name]= index
+            self.mapping[index] = name
+            self.interpreters.append(name) #need to track interpreters
+            index += 1
             for i in range(1, len(values)):
-                self.linkInterpretersToLangauages(name, values[i]) #mapping interpreter to language
-                self.addLanguagesOrInterpreters(values[i])
+                value = values[i].strip()
+                if(self.mapping.get(value) is None):
+                    self.mapping[value] = index
+                    self.mapping[index] = value
+                    index += 1
+                self.addEdges(self.mapping.get(name), self.mapping.get(value)) #populate matrix
 
 
     def getAllLanguages(self):
@@ -49,8 +41,20 @@ class Interpreter:
     def printGraph(self):
         outputResultList = []
         outputResultList.append('--------Function printGraph--------')
-        for key,val in self.edges.items():
-            outputResultList.append(key +'->'+str(val))
+
+        print('\t\t', end = '')
+        for row in range(self.vertices):
+            print(self.mapping.get(row), ' ', end ='')
+        print()
+
+        for row in range(self.vertices):
+            print(self.mapping.get(row), ' ', end = '')
+            for column in range(self.vertices):
+                print(self.edges[row][column], '\t', end='')
+            print()
+
+        # for row in range(self.vertices):
+        #     outputResultList.append(str(self.edges[row]))
 
         # write to output file
         self.utils.writeToOutputFile(outputResultList)
@@ -116,7 +120,7 @@ class Interpreter:
         # write to output file
         self.utils.writeToOutputFile(outputResultList)
 
-    def dfs(self, stack, visited, path, langB):
+    def dfs(self, stack, visited, path, langB, prevPath):
         if(len(stack)>0):
             item = stack.pop()
             if (item not in visited):
@@ -128,9 +132,17 @@ class Interpreter:
                         stack.append(vertex)
 
                 if (item == langB):
-                    return True
-            return self.dfs(stack, visited, path, langB)
+                    #need to check if we have found the shortest path
+                    if(len(prevPath) >  0 and len(prevPath) > len(path)):
+                        prevPath = path
+                    else:
+                        prevPath = path
+                    visited.pop(visited.index(item))
+                    # return True
+            return self.dfs(stack, visited, path, langB, prevPath)
         else:
+            if(len(path)>0 or len(prevPath)>0):
+                return True
             return False
 
     def findTransRelation(self, langA, langB):
@@ -143,6 +155,7 @@ class Interpreter:
         visited = [] #to keep track of which of the vertices
         stack = []
         path = [] # to track the path through vertices
+        prevPath = [] #to track the last found path
 
         visited.append(langA)
         path.append(langA)
@@ -150,7 +163,7 @@ class Interpreter:
         for vertices in connectedVertices:
             stack.append(vertices)
 
-        found = self.dfs(stack, visited, path, langB)
+        found = self.dfs(stack, visited, path, langB, prevPath)
         pathString = None
         if(found):
             for val in path:

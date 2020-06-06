@@ -1,118 +1,39 @@
---------Function showAll--------
-Total no. of candidates: 12
-Total no. of languages: 10
-
-
-List of candidates:
-Manasa
-Venkat
-Paul
-Harish
-Nisha
-Amjad
-Parul
-Rohan
-Rahul
-Sanjay
-Surya
-Zubin
-
-
-List of languages:
-English
-Gujarati
-Malayalam
-Bengali
-Marathi
-Telugu
-Hindi
-Punjabi
-Tamil
-Kannada
------------------------------------------
+--------Function printGraph--------
 
 
 --------Function printGraph--------
-Manasa->['English', 'Hindi', 'Punjabi']
-English->['Manasa', 'Venkat', 'Harish', 'Nisha', 'Amjad', 'Sanjay', 'Zubin']
-Hindi->['Manasa', 'Harish', 'Nisha', 'Amjad', 'Parul', 'Zubin']
-Punjabi->['Manasa', 'Harish', 'Parul']
-Venkat->['English', 'Kannada', 'Tamil', 'Telugu']
-Kannada->['Venkat']
-Tamil->['Venkat', 'Paul', 'Rohan', 'Surya']
-Telugu->['Venkat', 'Paul', 'Rohan']
-Paul->['Malayalam', 'Marathi', 'Tamil', 'Telugu']
-Malayalam->['Paul', 'Rohan', 'Surya']
-Marathi->['Paul', 'Nisha', 'Rahul']
-Harish->['Punjabi', 'Gujarati', 'English', 'Hindi']
-Gujarati->['Harish', 'Amjad']
-Nisha->['Bengali', 'English', 'Marathi', 'Hindi']
-Bengali->['Nisha', 'Sanjay']
-Amjad->['English', 'Hindi', 'Gujarati']
-Parul->['Hindi', 'Punjabi']
-Rohan->['Telugu', 'Tamil', 'Malayalam']
-Rahul->['Marathi']
-Sanjay->['Bengali', 'English']
-Surya->['Malayalam', 'Tamil']
-Zubin->['Hindi', 'English']
 
 
---------Function displayHireList--------
-No of candidates required to cover all languages: 6
-Zubin / Hindi / English
-Parul / Hindi / Punjabi
-Harish / Punjabi / Gujarati / English / Hindi
-Nisha / Bengali / English / Marathi / Hindi
-Paul / Malayalam / Marathi / Tamil / Telugu
-Venkat / English / Kannada / Tamil / Telugu
------------------------------------------
+--------Function printGraph--------
 
 
---------Function displayCandidates--------
-List of Candidates who can speak Hindi:
-Manasa
-Harish
-Nisha
-Amjad
-Parul
-Zubin
------------------------------------------
+--------Function printGraph--------
 
 
---------Function displayCandidates--------
-List of Candidates who can speak Tamil:
-Venkat
-Paul
-Rohan
-Surya
------------------------------------------
+--------Function printGraph--------
 
 
---------Function findDirectTranslator --------
-LanguageA: English
-LanguageB: Malayalam
-Direct Translator: No. 
------------------------------------------
+--------Function printGraph--------
 
 
---------Function findDirectTranslator --------
-LanguageA: Hindi
-LanguageB: Gujarati
-Direct Translator: Yes,Amjad can translate.
------------------------------------------
+--------Function printGraph--------
 
 
---------Function findTransRelation --------
-LanguageA: English
-LanguageB: Malayalam
-Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish>Gujarati>Amjad>Manasa>Nisha>Marathi>Rahul>Paul>Telugu>Rohan>Malayalam
------------------------------------------
+--------Function printGraph--------
 
 
---------Function findTransRelation --------
-LanguageA: English
-LanguageB: Gujarati
-Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish>Gujarati
------------------------------------------
+--------Function printGraph--------
+
+
+--------Function printGraph--------
+
+
+--------Function printGraph--------
+
+
+--------Function printGraph--------
+
+
+--------Function printGraph--------
 
 

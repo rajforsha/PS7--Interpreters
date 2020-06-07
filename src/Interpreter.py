@@ -98,19 +98,21 @@ class Interpreter:
         outputResultList.append('--------Function findDirectTranslator --------')
         outputResultList.append('LanguageA: '+ langA)
         outputResultList.append('LanguageB: ' + langB)
-        candidates = self.edges.get(langA)
-        #used dfs to iterate through langA and looking whether it is connected to the langB
-        stack = []
-        for candidate in candidates:
-            stack.append(candidate)
 
+        stack = []
         result = None
-        while(len(stack)>0):
+        row = self.mapping.get(langA)
+        for column in range(self.vertices):
+            if(self.edges[row][column] is not None):
+                stack.append(column)
+
+        while len(stack)>0:
             item = stack.pop()
-            langauges = self.edges.get(item)
-            if(langB in langauges):
-                result = item
-                break
+            # we need to just check whether the connected vertices has langB
+            for col in range(self.vertices):
+                if(self.edges[item][col] is not None and self.mapping.get(col) == langB):
+                    result = self.mapping.get(item)
+                    break
 
         if(result is None):
             outputResultList.append('Direct Translator: No. ')

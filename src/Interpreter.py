@@ -67,6 +67,7 @@ class Interpreter:
         outputResultList.append('\n')
         outputResultList.append('List of languages:')
 
+        #iterating through all the vertices and checking if the vertex is not an interpreter
         for row in range(self.vertices):
             if self.mapping[row] not in self.interpreters:
                 outputResultList.append(self.mapping[row])
@@ -77,7 +78,12 @@ class Interpreter:
 
     def displayCandidates(self, lang):
         outputResultList = []
-        list = self.edges.get(lang)
+        list = [] #store all the candidate who can speak language queried for.
+        index = self.mapping.get(lang)
+        for row in range(self.vertices):
+            if(self.edges[index][row] is not None):
+                list.append(self.mapping.get(row))
+
         outputResultList.append('--------Function displayCandidates--------')
         outputResultList.append('List of Candidates who can speak '+ lang +':')
         for candidate in list:

@@ -35,3 +35,23 @@ Bengali
 --------Function printGraph--------
 
 
+--------Function displayCandidates--------
+List of Candidates who can speak Hindi:
+Manasa
+Harish
+Nisha
+Amjad
+Parul
+Zubin
+-----------------------------------------
+
+
+--------Function displayCandidates--------
+List of Candidates who can speak Tamil:
+Venkat
+Paul
+Rohan
+Surya
+-----------------------------------------
+
+

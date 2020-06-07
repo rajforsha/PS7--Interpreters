@@ -29,20 +29,20 @@ class MainApplication:
         object.populateAdjacencyMatrixFromInputFile('../resources/Sample inputPS7.txt')
         object.showAll()
         object.printGraph()
-        # for val in commandList:
-        #     if('showMinList' in val):
-        #         object.displayHireList()
-        #     elif('searchLanguage' in val):
-        #         arr = val.split(':')
-        #         object.displayCandidates(arr[1].strip())
-        #     elif('DirectTranslate' in val):
-        #         arr = val.split(':')
-        #         object.findDirectTranslator(arr[1].strip(), arr[2].strip())
-        #     elif('TransRelation' in val):
-        #         arr = val.split(':')
-        #         object.findTransRelation(arr[1].strip(), arr[2].strip())
-        #     else:
-        #         print('invalid command')
+        for val in commandList:
+            # if('showMinList' in val):
+            #     object.displayHireList()
+            if('searchLanguage' in val):
+                arr = val.split(':')
+                object.displayCandidates(arr[1].strip())
+            # elif('DirectTranslate' in val):
+            #     arr = val.split(':')
+            #     object.findDirectTranslator(arr[1].strip(), arr[2].strip())
+            # elif('TransRelation' in val):
+            #     arr = val.split(':')
+            #     object.findTransRelation(arr[1].strip(), arr[2].strip())
+            else:
+                print('invalid command')
 
 
 if __name__ == '__main__':

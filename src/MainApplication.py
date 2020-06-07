@@ -38,9 +38,9 @@ class MainApplication:
             elif('DirectTranslate' in val):
                 arr = val.split(':')
                 object.findDirectTranslator(arr[1].strip(), arr[2].strip())
-            # elif('TransRelation' in val):
-            #     arr = val.split(':')
-            #     object.findTransRelation(arr[1].strip(), arr[2].strip())
+            elif('TransRelation' in val):
+                arr = val.split(':')
+                object.findTransRelation(arr[1].strip(), arr[2].strip())
             else:
                 print('invalid command')
 

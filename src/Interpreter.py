@@ -13,7 +13,6 @@ class Interpreter:
         self.edges[src][dest] = 1
         self.edges[dest][src] = 1
 
-
     def populateAdjacencyMatrixFromInputFile(self, filepath):
         data = self.utils.readFromInputFile(filepath)
         index = 0 #used for mapping
@@ -33,8 +32,8 @@ class Interpreter:
                 self.addEdges(self.mapping.get(name), self.mapping.get(value)) #populate matrix
 
     def printGraph(self):
-        outputResultList = []
-        outputResultList.append('--------Function printGraph--------')
+        output_result_list = []
+        output_result_list.append('--------Function printGraph--------')
 
         print('\t\t', end = '')
         for row in range(self.vertices):
@@ -48,56 +47,56 @@ class Interpreter:
             print()
 
         # for row in range(self.vertices):
-        #     outputResultList.append(str(self.edges[row]))
+        #     output_result_list.append(str(self.edges[row]))
 
         # write to output file
-        self.utils.writeToOutputFile(outputResultList)
+        self.utils.writeToOutputFile(output_result_list)
 
     def showAll(self):
-        outputResultList = []
-        outputResultList.append('--------Function showAll--------')
-        outputResultList.append('Total no. of candidates: ' + str(len(self.interpreters)))
-        outputResultList.append('Total no. of languages: '+ str(self.vertices - len(self.interpreters)))
-        outputResultList.append('\n')
+        output_result_list = []
+        output_result_list.append('--------Function showAll--------')
+        output_result_list.append('Total no. of candidates: ' + str(len(self.interpreters)))
+        output_result_list.append('Total no. of languages: '+ str(self.vertices - len(self.interpreters)))
+        output_result_list.append('\n')
 
-        outputResultList.append('List of candidates:')
+        output_result_list.append('List of candidates:')
         for candidate in self.interpreters:
-            outputResultList.append(candidate)
+            output_result_list.append(candidate)
 
-        outputResultList.append('\n')
-        outputResultList.append('List of languages:')
+        output_result_list.append('\n')
+        output_result_list.append('List of languages:')
 
         #iterating through all the vertices and checking if the vertex is not an interpreter
         for row in range(self.vertices):
             if self.mapping[row] not in self.interpreters:
-                outputResultList.append(self.mapping[row])
+                output_result_list.append(self.mapping[row])
 
-        outputResultList.append('-----------------------------------------')
+        output_result_list.append('-----------------------------------------')
         # write to output file
-        self.utils.writeToOutputFile(outputResultList)
+        self.utils.writeToOutputFile(output_result_list)
 
     def displayCandidates(self, lang):
-        outputResultList = []
+        output_result_list = []
         list = [] #store all the candidate who can speak language queried for.
         index = self.mapping.get(lang)
         for row in range(self.vertices):
             if(self.edges[index][row] is not None):
                 list.append(self.mapping.get(row))
 
-        outputResultList.append('--------Function displayCandidates--------')
-        outputResultList.append('List of Candidates who can speak '+ lang +':')
+        output_result_list.append('--------Function displayCandidates--------')
+        output_result_list.append('List of Candidates who can speak '+ lang +':')
         for candidate in list:
-            outputResultList.append(candidate)
+            output_result_list.append(candidate)
 
-        outputResultList.append('-----------------------------------------')
+        output_result_list.append('-----------------------------------------')
         # write to output file
-        self.utils.writeToOutputFile(outputResultList)
+        self.utils.writeToOutputFile(output_result_list)
 
     def findDirectTranslator(self, langA, langB):
-        outputResultList = []
-        outputResultList.append('--------Function findDirectTranslator --------')
-        outputResultList.append('LanguageA: '+ langA)
-        outputResultList.append('LanguageB: ' + langB)
+        output_result_list = []
+        output_result_list.append('--------Function findDirectTranslator --------')
+        output_result_list.append('LanguageA: '+ langA)
+        output_result_list.append('LanguageB: ' + langB)
 
         stack = []
         result = None
@@ -115,77 +114,65 @@ class Interpreter:
                     break
 
         if(result is None):
-            outputResultList.append('Direct Translator: No. ')
+            output_result_list.append('Direct Translator: No. ')
         else:
-            outputResultList.append('Direct Translator: Yes,'+ result+' can translate.')
+            output_result_list.append('Direct Translator: Yes,'+ result+' can translate.')
 
-        outputResultList.append('-----------------------------------------')
+        output_result_list.append('-----------------------------------------')
         # write to output file
-        self.utils.writeToOutputFile(outputResultList)
+        self.utils.writeToOutputFile(output_result_list)
 
-    def dfs(self, stack, visited, path, langB, prevPath):
+    def dfs(self, stack, visited, path, langB):
         if(len(stack)>0):
             item = stack.pop()
-            if (item not in visited):
-                path.append(item)
-                visited.append(item)
-                vertices = self.edges.get(item)
-                for vertex in vertices:
-                    if(vertex not in visited):
-                        stack.append(vertex)
+            if visited[item] is False:
 
-                if (item == langB):
-                    #need to check if we have found the shortest path
-                    if(len(prevPath) >  0 and len(prevPath) > len(path)):
-                        prevPath = path
-                    else:
-                        prevPath = path
-                    visited.pop(visited.index(item))
-                    # return True
-            return self.dfs(stack, visited, path, langB, prevPath)
+                if (self.mapping.get(item) == langB):
+                    return True # we have found the interpreters
+
+                path.append(self.mapping.get(item)) # appending value from mapping
+                visited[item] = True
+
+                for col in range(self.vertices):
+                    if visited[col] is False and self.edges[item][col] == 1:
+                        stack.append(col)
+
+            return self.dfs(stack, visited, path, langB)
         else:
-            if(len(path)>0 or len(prevPath)>0):
-                return True
             return False
 
     def findTransRelation(self, langA, langB):
-        outputResultList = []
-        outputResultList.append('--------Function findTransRelation --------')
-        outputResultList.append('LanguageA: '+ langA)
-        outputResultList.append('LanguageB: ' + langB)
+        output_result_list = []
+        output_result_list.append('--------Function findTransRelation --------')
+        output_result_list.append('LanguageA: '+ langA)
+        output_result_list.append('LanguageB: ' + langB)
 
-        #use dfs to iterate
-        visited = [] #to keep track of which of the vertices
-        stack = []
+        # use dfs to iterate
+        visited = [False]*self.vertices # to keep track of which of the vertices
+        stack = [] # dfs
         path = [] # to track the path through vertices
-        prevPath = [] #to track the last found path
+        stack.append(self.mapping.get(langA))
 
-        visited.append(langA)
-        path.append(langA)
-        connectedVertices = self.edges.get(langA)
-        for vertices in connectedVertices:
-            stack.append(vertices)
-
-        found = self.dfs(stack, visited, path, langB, prevPath)
-        pathString = None
-        if(found):
+        found = self.dfs(stack, visited, path, langB)
+        path_string = None
+        if found:
             for val in path:
-                if(pathString is None):
-                    pathString = str(val)
+                if path_string is None:
+                    path_string = str(val)
                 else:
-                    pathString = pathString + '>'+ val
-            outputResultList.append('Related: Yes, '+ pathString)
+                    path_string = path_string + '>'+ val
+            output_result_list.append('Related: Yes, '+ path_string)
         else:
-            outputResultList.append('Related: No, ')
-        outputResultList.append('-----------------------------------------')
+            output_result_list.append('Related: No, ')
+        output_result_list.append('-----------------------------------------')
         # write to output file
-        self.utils.writeToOutputFile(outputResultList)
+        self.utils.writeToOutputFile(output_result_list)
 
 
     def displayHireList(self):
         #dfs , grraph greegy method prims or kruskal
-        outputResultList = []
-        outputResultList.append('--------Function displayHireList--------')
+        output_result_list = []
+        output_result_list.append('--------Function displayHireList--------')
 
         langauges = list(self.getAllLanguages())
         allLanguageCovered = list(self.getAllLanguages())
@@ -217,14 +204,14 @@ class Interpreter:
             if(len(allLanguageCovered)<1):
                 break
 
-        outputResultList.append('No of candidates required to cover all languages: '+ str(len(hireList)))
+        output_result_list.append('No of candidates required to cover all languages: '+ str(len(hireList)))
         for hire in hireList:
             value = self.edges.get(hire)
-            outputResultList.append(hire + ' / '+ ' / '.join(value))
+            output_result_list.append(hire + ' / '+ ' / '.join(value))
 
-        outputResultList.append('-----------------------------------------')
+        output_result_list.append('-----------------------------------------')
         # write to output file
-        self.utils.writeToOutputFile(outputResultList)
+        self.utils.writeToOutputFile(output_result_list)
 
     def hasAllLanguagesOfCurrentInterpreterAlreadyCovered(self, item, hireList):
         if(len(hireList) < 1):

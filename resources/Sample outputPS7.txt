@@ -65,78 +65,21 @@ Direct Translator: No.
 --------Function findDirectTranslator --------
 LanguageA: Hindi
 LanguageB: Gujarati
-Direct Translator: Yes,Gujarati can translate.
+Direct Translator: Yes,Harish can translate.
 -----------------------------------------
 
 
---------Function showAll--------
-Total no. of candidates: 12
-Total no. of languages: 10
-
-
-List of candidates:
-Manasa
-Venkat
-Paul
-Harish
-Nisha
-Amjad
-Parul
-Rohan
-Rahul
-Sanjay
-Surya
-Zubin
-
-
-List of languages:
-English
-Hindi
-Punjabi
-Kannada
-Tamil
-Telugu
-Malayalam
-Marathi
-Gujarati
-Bengali
------------------------------------------
-
-
---------Function printGraph--------
-
-
---------Function displayCandidates--------
-List of Candidates who can speak Hindi:
-Manasa
-Harish
-Nisha
-Amjad
-Parul
-Zubin
------------------------------------------
-
-
---------Function displayCandidates--------
-List of Candidates who can speak Tamil:
-Venkat
-Paul
-Rohan
-Surya
------------------------------------------
-
-
---------Function findDirectTranslator --------
+--------Function findTransRelation --------
 LanguageA: English
 LanguageB: Malayalam
-Direct Translator: No. 
+Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish>Gujarati>Amjad>Manasa>Nisha>Bengali>Sanjay>Marathi>Rahul>Paul
 -----------------------------------------
 
 
---------Function findDirectTranslator --------
-LanguageA: Hindi
+--------Function findTransRelation --------
+LanguageA: English
 LanguageB: Gujarati
-Direct Translator: Yes,Harish can translate.
+Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish
 -----------------------------------------
 
 

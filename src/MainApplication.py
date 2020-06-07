@@ -27,7 +27,7 @@ class MainApplication:
 
     def executeMethodForObject(self, object, commandList):
         object.populateAdjacencyMatrixFromInputFile('../resources/Sample inputPS7.txt')
-        # object.showAll()
+        object.showAll()
         object.printGraph()
         # for val in commandList:
         #     if('showMinList' in val):

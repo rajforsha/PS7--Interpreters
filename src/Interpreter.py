@@ -32,12 +32,6 @@ class Interpreter:
                     index += 1
                 self.addEdges(self.mapping.get(name), self.mapping.get(value)) #populate matrix
 
-
-    def getAllLanguages(self):
-        s1 = set(self.vertices)
-        s2 = set(self.interpreters)
-        return s1-s2
-
     def printGraph(self):
         outputResultList = []
         outputResultList.append('--------Function printGraph--------')
@@ -63,7 +57,7 @@ class Interpreter:
         outputResultList = []
         outputResultList.append('--------Function showAll--------')
         outputResultList.append('Total no. of candidates: ' + str(len(self.interpreters)))
-        outputResultList.append('Total no. of languages: '+ str(len(self.getAllLanguages())))
+        outputResultList.append('Total no. of languages: '+ str(self.vertices - len(self.interpreters)))
         outputResultList.append('\n')
 
         outputResultList.append('List of candidates:')
@@ -73,8 +67,9 @@ class Interpreter:
         outputResultList.append('\n')
         outputResultList.append('List of languages:')
 
-        for language in self.getAllLanguages():
-            outputResultList.append(language)
+        for row in range(self.vertices):
+            if self.mapping[row] not in self.interpreters:
+                outputResultList.append(self.mapping[row])
 
         outputResultList.append('-----------------------------------------')
         # write to output file

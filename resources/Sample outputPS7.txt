@@ -1,37 +1,35 @@
---------Function printGraph--------
+--------Function showAll--------
+Total no. of candidates: 12
+Total no. of languages: 10
 
 
---------Function printGraph--------
+List of candidates:
+Manasa
+Venkat
+Paul
+Harish
+Nisha
+Amjad
+Parul
+Rohan
+Rahul
+Sanjay
+Surya
+Zubin
 
 
---------Function printGraph--------
-
-
---------Function printGraph--------
-
-
---------Function printGraph--------
-
-
---------Function printGraph--------
-
-
---------Function printGraph--------
-
-
---------Function printGraph--------
-
-
---------Function printGraph--------
-
-
---------Function printGraph--------
-
-
---------Function printGraph--------
-
-
---------Function printGraph--------
+List of languages:
+English
+Hindi
+Punjabi
+Kannada
+Tamil
+Telugu
+Malayalam
+Marathi
+Gujarati
+Bengali
+-----------------------------------------
 
 
 --------Function printGraph--------

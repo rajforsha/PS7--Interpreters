@@ -32,7 +32,14 @@ Bengali
 -----------------------------------------
 
 
---------Function printGraph--------
+--------Function displayHireList--------
+No of candidates required to cover all languages: 5
+Manasa / English / Hindi / Punjabi
+Venkat / English / Kannada / Tamil / Telugu
+Harish / English / Hindi / Punjabi / Gujarati
+Nisha / English / Hindi / Marathi / Bengali
+Paul / Tamil / Telugu / Malayalam / Marathi
+-----------------------------------------
 
 
 --------Function displayCandidates--------

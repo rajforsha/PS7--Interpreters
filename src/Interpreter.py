@@ -31,7 +31,7 @@ class Interpreter:
                     index += 1
                 self.addEdges(self.mapping.get(name), self.mapping.get(value)) #populate matrix
 
-    def printGraph(self):
+    """def printGraph(self):
         output_result_list = []
         output_result_list.append('--------Function printGraph--------')
 
@@ -50,7 +50,15 @@ class Interpreter:
         #     output_result_list.append(str(self.edges[row]))
 
         # write to output file
-        self.utils.writeToOutputFile(output_result_list)
+        self.utils.writeToOutputFile(output_result_list)"""
+
+    def getAllLanguages(self):
+        languages = []
+        # iterating through all the vertices and checking if the vertex is not an interpreter
+        for row in range(self.vertices):
+            if self.mapping[row] not in self.interpreters:
+                languages.append(self.mapping[row])
+        return languages
 
     def showAll(self):
         output_result_list = []
@@ -66,10 +74,8 @@ class Interpreter:
         output_result_list.append('\n')
         output_result_list.append('List of languages:')
 
-        #iterating through all the vertices and checking if the vertex is not an interpreter
-        for row in range(self.vertices):
-            if self.mapping[row] not in self.interpreters:
-                output_result_list.append(self.mapping[row])
+        for language in self.getAllLanguages():
+            output_result_list.append(language)
 
         output_result_list.append('-----------------------------------------')
         # write to output file
@@ -168,65 +174,50 @@ class Interpreter:
         # write to output file
         self.utils.writeToOutputFile(output_result_list)
 
+    def findMinimumInterpreters(self, stack, visited, languages, all_language_covered, hirelist):
+        while(len(stack)>0):
+            item = stack.pop()
+            if(visited[item] is False):
+                visited[item] = True
+                for col in range(self.vertices):
+                    if(self.edges[item][col] is not None):
+                        if(self.mapping.get(col) in languages and self.mapping.get(col) in all_language_covered):
+                            all_language_covered.pop(all_language_covered.index(self.mapping.get(col)))
+                            if(self.mapping.get(item) not in hirelist):
+                                hirelist.append(self.mapping.get(item))
+                        else:
+                            # its an interpreter
+                            stack.append(col)
+                if(len(all_language_covered)<1):
+                    return
+            else:
+                self.findMinimumInterpreters(stack, visited, languages, all_language_covered, hirelist)
 
     def displayHireList(self):
-        #dfs , grraph greegy method prims or kruskal
+        # dfs , graph greedy method prims or kruskal
         output_result_list = []
         output_result_list.append('--------Function displayHireList--------')
 
-        langauges = list(self.getAllLanguages())
-        allLanguageCovered = list(self.getAllLanguages())
-        visited = [] #to track track of visited vertex
-        hireList = [] #to keep count of interpreters
+        languages = list(self.getAllLanguages())
+        all_language_covered = list(self.getAllLanguages())
+        visited = [False]*self.vertices # to track track of visited vertex
+        hireList = [] # to keep count of interpreters
         stack = []
 
-        startVertex = langauges[0]
-        visited.append(startVertex)
-        if(startVertex in langauges):
-            allLanguageCovered.pop(allLanguageCovered.index(startVertex))
-        for val in self.edges.get(startVertex):
-            stack.append(val)
+        for val in range(self.vertices):
+            if(self.mapping.get(val) in self.interpreters and visited[val] is False):
+                stack.append(val)
+                self.findMinimumInterpreters(stack, visited, languages, all_language_covered, hireList)
 
-        while(len(stack)>0):
-            item = stack.pop()
-            if(item not in visited):
-                visited.append(item)
-                if (item not in langauges and item not in hireList):  # it's a candidate and not added to hirelist
-                    if(self.hasAllLanguagesOfCurrentInterpreterAlreadyCovered(item, hireList)):
-                        hireList.append(item)
-                elif (item in langauges and item in allLanguageCovered): #remove if its langauage and has been covered
-                    allLanguageCovered.pop(allLanguageCovered.index(item))
-                vertices = self.edges.get(item)
-                for vertex in vertices:
-                    if(vertex not in visited):
-                        stack.append(vertex)
-
-            if(len(allLanguageCovered)<1):
-                break
-
-        output_result_list.append('No of candidates required to cover all languages: '+ str(len(hireList)))
+        output_result_list.append('No of candidates required to cover all languages: ' + str(len(hireList)))
         for hire in hireList:
-            value = self.edges.get(hire)
-            output_result_list.append(hire + ' / '+ ' / '.join(value))
+            language_known = []
+            for col in range(self.vertices):
+                if(self.edges[self.mapping.get(hire)][col] is not None):
+                    language_known.append(self.mapping.get(col))
+            output_result_list.append(hire + ' / ' + ' / '.join(language_known))
 
         output_result_list.append('-----------------------------------------')
         # write to output file
         self.utils.writeToOutputFile(output_result_list)
 
-    def hasAllLanguagesOfCurrentInterpreterAlreadyCovered(self, item, hireList):
-        if(len(hireList) < 1):
-            return True
-        languages = self.edges.get(item)
-        languagesCoveredSofar = []
-        for interpreter in hireList:
-            values = self.edges.get(interpreter)
-            for val in values:
-                languagesCoveredSofar.append(val)
-
-        s1 = set(languages)
-        s2 = set(languagesCoveredSofar)
-
-        if(len(s1-s2)>0):
-            return True
-        else:
-            return False

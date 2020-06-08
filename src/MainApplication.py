@@ -28,11 +28,10 @@ class MainApplication:
     def executeMethodForObject(self, object, commandList):
         object.populateAdjacencyMatrixFromInputFile('../resources/Sample inputPS7.txt')
         object.showAll()
-        object.printGraph()
         for val in commandList:
-            # if('showMinList' in val):
-            #     object.displayHireList()
-            if('searchLanguage' in val):
+            if('showMinList' in val):
+                object.displayHireList()
+            elif('searchLanguage' in val):
                 arr = val.split(':')
                 object.displayCandidates(arr[1].strip())
             elif('DirectTranslate' in val):

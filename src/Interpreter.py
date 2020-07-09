@@ -2,26 +2,26 @@ from Utils import Utils
 class Interpreter:
 
     def __init__(self, vertices):
-        self.vertices = vertices #list containing languages and interpreter
-        self.edges = [ [ None for i in range(vertices) ] for j in range(vertices) ] #adjency matrix of edges linking interpreters to languages
-        self.interpreters = [] #need to maintain since vertices contain both the langauge and interpreter
-        self.mapping = {} #mapping vertices to integer value
+        self.vertices = vertices # list containing languages and interpreter
+        self.edges = [ [ None for i in range(vertices) ] for j in range(vertices) ] # adjency matrix of edges linking interpreters to languages
+        self.interpreters = [] # need to maintain since vertices contain both the langauge and interpreter
+        self.mapping = {} # mapping vertices to integer value
         self.utils = Utils()
 
     def addEdges(self, src, dest):
-        #undirected graph, hence adding to both the ends
+        # undirected graph, hence adding to both the ends
         self.edges[src][dest] = 1
         self.edges[dest][src] = 1
 
     def populateAdjacencyMatrixFromInputFile(self, filepath):
         data = self.utils.readFromInputFile(filepath)
-        index = 0 #used for mapping
+        index = 0 # used for mapping
         for line in data:
             values = line.strip('\n').split('/')
-            name = values[0].strip() #first word
+            name = values[0].strip() # first word
             self.mapping[name]= index
             self.mapping[index] = name
-            self.interpreters.append(name) #need to track interpreters
+            self.interpreters.append(name) # need to track interpreters
             index += 1
             for i in range(1, len(values)):
                 value = values[i].strip()

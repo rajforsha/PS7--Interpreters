@@ -85,7 +85,7 @@ class Interpreter:
         for row in range(self.vertices):
             print(self.mapping.get(row), ' ', end = '')
             for column in range(self.vertices):
-                print(self.edges[row][column], '\t', end='')
+                print(self.graph[row][column], '\t', end='')
             print()
 
         # for row in range(self.vertices):

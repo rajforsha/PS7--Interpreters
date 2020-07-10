@@ -1,7 +1,32 @@
 from Utils import Utils
 import sys
+"""
+this is the class which has implementation for all the methods required for this assignment
+private methods:
+__addEdges
+__getAllLanguages
+__bfs
+__findMinimumInterpreters
+public methods:
+populateAdjacencyMatrixFromInputFile
+showAll
+displayCandidates
+findDirectTranslator
+findTransRelation
+displayHireList
+"""
 class Interpreter:
 
+    """
+    this is the __init__ method
+    vertices: this contains the total number of vertex of graph
+    edges : this is the adjacency matrix created, the matrix is m[vertices][vertices] size: vertices*vertices
+    interpreters: this is the list we need to maintain as vertex can be either language or interpreter
+    mapping: since the input is string(vertex), we create mapping for the vertex
+            example harish -> 1 h[1]= harish, h[harish]=1
+            this is created for each vertex
+    utils: we need this class to write to file and read from file
+    """
     def __init__(self, vertices):
         self.vertices = vertices # list containing languages and interpreter
         self.edges = [ [ None for i in range(vertices) ] for j in range(vertices) ] # adjency matrix of edges linking interpreters to languages
@@ -9,11 +34,26 @@ class Interpreter:
         self.mapping = {} # mapping vertices to integer value
         self.utils = Utils()
 
+    # since the graph is undirected, for each src and dest, we create the mapping.
     def __addEdges(self, src, dest):
         # undirected graph, hence adding to both the ends
         self.edges[src][dest] = 1
         self.edges[dest][src] = 1
 
+    """
+    we populate the matrix here.
+    filepath : path to the input file
+    we start with index-0, since we need to create the mapping, so that graph iteration would be easy. starting row 0- row n
+    we also create the interpreter list, as we need to distinguish between language and interpreter
+    so while reading the input file, we know the first word is interpreter and rest is languages
+        example: Manasa /English / Hindi / Punjabi
+                Manasa is interpreter
+                english, hindi and punjabi are labguages
+    we create the mapping for each vertex as well and finally
+         example harish -> 1 h[1]= harish, h[harish]=1
+                this is created for each vertex
+    we create the adjacency matrix by calling __addEdges method
+    """
     def populateAdjacencyMatrixFromInputFile(self, filepath):
         data = self.utils.readFromInputFile(filepath)
         index = 0 # used for mapping
@@ -53,6 +93,10 @@ class Interpreter:
         # write to output file
         self.utils.writeToOutputFile(output_result_list)"""
 
+    """
+    since we have the list of interpreters, now its easy to distinguish, hence we iterate for all the vertices
+    and whichever item is not in interpreter, we know its a language
+    """
     def __getAllLanguages(self):
         languages = []
         # iterating through all the vertices and checking if the vertex is not an interpreter
@@ -61,6 +105,12 @@ class Interpreter:
                 languages.append(self.mapping[row])
         return languages
 
+    """
+    this method displays the list of languages and interpreters
+    as we already have the list of languages and interpreters
+    languages: __getAllLanguages
+    interpreters: self.interpreters
+    """
     def showAll(self):
         output_result_list = []
         output_result_list.append('--------Function showAll--------')
@@ -208,7 +258,7 @@ class Interpreter:
                 self.__findMinimumInterpreters(stack, visited, languages, all_language_covered, hirelist)
 
     def displayHireList(self):
-        # dfs , graph greedy method prims or kruskal
+        # dfs
         output_result_list = []
         output_result_list.append('--------Function displayHireList--------')
 

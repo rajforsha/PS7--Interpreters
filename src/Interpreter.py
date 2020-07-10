@@ -15,6 +15,7 @@ findDirectTranslator
 findTransRelation
 displayHireList
 """
+
 class Interpreter:
 
     """
@@ -132,6 +133,11 @@ class Interpreter:
         # write to output file
         self.utils.writeToOutputFile(output_result_list)
 
+    """
+    lang: given a language, we need to find all the candidate who can speak particualr language
+    since we already have the matrix, its very now, we just need to iterate for all the column for that particular row
+    and print everything for which the m[row][col] is not None
+    """
     def displayCandidates(self, lang):
         output_result_list = []
         list = [] #store all the candidate who can speak language queried for.
@@ -149,6 +155,14 @@ class Interpreter:
         # write to output file
         self.utils.writeToOutputFile(output_result_list)
 
+    """
+    langA: language A given
+    langB: language B given
+    for langA we need to find all the cols for which the value is not None and put it into the stack
+    then we iterate through the stack and for each value, we look into all the columns and check if the value is
+    not None and it is equal to langB
+    if we get the link, we store it to result.
+    """
     def findDirectTranslator(self, langA, langB):
         output_result_list = []
         output_result_list.append('--------Function findDirectTranslator --------')
@@ -179,6 +193,18 @@ class Interpreter:
         # write to output file
         self.utils.writeToOutputFile(output_result_list)
 
+    """
+    private Method
+    this is the modified version of bfs, which we have used to find the minimum distance between the
+    2 vertex
+    src: langA
+    dest: langB
+    we main 2 list pred: it contains the parent name
+    dist: this list contains the actual distance from src to all the vertices
+    we make use of visited, so that we don't visit the same vertex again.
+    return: True-> we have a link
+            False-> no link between src and dest
+    """
     def __bfs(self, pred, dist, langA, langB):
         queue = []
         visited = [False]*self.vertices
@@ -204,6 +230,10 @@ class Interpreter:
                         return True
         return False
 
+    """
+    it takes 2 paramter langA and langB and returns the relation between them.
+    we make use of private method bfs.
+    """
     def findTransRelation(self, langA, langB):
         output_result_list = []
         output_result_list.append('--------Function findTransRelation --------')
@@ -238,6 +268,17 @@ class Interpreter:
         # write to output file
         self.utils.writeToOutputFile(output_result_list)
 
+    """
+    this is a private method
+    we use dfs to iterate over the matrix 
+    stack: store the vertex to be visited
+    visited: keep track so that we don't visit the same vertex again
+    languages: actual language list, we need as the vertex can be either interpreter as well as language
+    all_language_covered: initially it has all the languages, once we visit a language, we remove from this list
+    all_language_covered: if the list is empty, we have the interpreters who can cover all the languages
+    for each language, we remove. we add it to the hirelist and we don't add the same interpreter again if it is there
+    in the hirelist.s
+    """
     def __findMinimumInterpreters(self, stack, visited, languages, all_language_covered, hirelist):
         while(len(stack)>0):
             item = stack.pop()
@@ -257,6 +298,12 @@ class Interpreter:
             else:
                 self.__findMinimumInterpreters(stack, visited, languages, all_language_covered, hirelist)
 
+    """
+    This method takes care of getting the minimal hirelist who can cover all the languages.
+    it internally calls __findMinimumInterpreters and get all the hirelist
+    once we get the hirelist, we iterate for item for all the cols and if the value is not None
+    we populate it to list
+    """
     def displayHireList(self):
         # dfs
         output_result_list = []

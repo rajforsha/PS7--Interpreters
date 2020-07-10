@@ -79,14 +79,14 @@ Direct Translator: Yes,Harish can translate.
 --------Function findTransRelation --------
 LanguageA: English
 LanguageB: Malayalam
-Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish>Gujarati>Amjad>Manasa>Nisha>Bengali>Sanjay>Marathi>Rahul>Paul
+Related: Yes, English>Venkat>Tamil>Paul>Malayalam
 -----------------------------------------
 
 
 --------Function findTransRelation --------
 LanguageA: English
 LanguageB: Gujarati
-Related: Yes, English>Zubin>Hindi>Parul>Punjabi>Harish
+Related: Yes, English>Harish>Gujarati
 -----------------------------------------
 
 

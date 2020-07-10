@@ -1,4 +1,5 @@
 from Utils import Utils
+import sys
 class Interpreter:
 
     def __init__(self, vertices):
@@ -8,7 +9,7 @@ class Interpreter:
         self.mapping = {} # mapping vertices to integer value
         self.utils = Utils()
 
-    def addEdges(self, src, dest):
+    def __addEdges(self, src, dest):
         # undirected graph, hence adding to both the ends
         self.edges[src][dest] = 1
         self.edges[dest][src] = 1
@@ -29,7 +30,7 @@ class Interpreter:
                     self.mapping[value] = index
                     self.mapping[index] = value
                     index += 1
-                self.addEdges(self.mapping.get(name), self.mapping.get(value)) #populate matrix
+                self.__addEdges(self.mapping.get(name), self.mapping.get(value)) #populate matrix
 
     """def printGraph(self):
         output_result_list = []
@@ -52,7 +53,7 @@ class Interpreter:
         # write to output file
         self.utils.writeToOutputFile(output_result_list)"""
 
-    def getAllLanguages(self):
+    def __getAllLanguages(self):
         languages = []
         # iterating through all the vertices and checking if the vertex is not an interpreter
         for row in range(self.vertices):
@@ -74,7 +75,7 @@ class Interpreter:
         output_result_list.append('\n')
         output_result_list.append('List of languages:')
 
-        for language in self.getAllLanguages():
+        for language in self.__getAllLanguages():
             output_result_list.append(language)
 
         output_result_list.append('-----------------------------------------')
@@ -128,24 +129,30 @@ class Interpreter:
         # write to output file
         self.utils.writeToOutputFile(output_result_list)
 
-    def dfs(self, stack, visited, path, langB):
-        if(len(stack)>0):
-            item = stack.pop()
-            if visited[item] is False:
+    def __bfs(self, pred, dist, langA, langB):
+        queue = []
+        visited = [False]*self.vertices
+        for i  in range(self.vertices):
+            visited[i] = False
+            pred[i] = -1
+            dist[i] = sys.maxsize
 
-                if (self.mapping.get(item) == langB):
-                    return True # we have found the interpreters
+        visited[self.mapping.get(langA)] = True;
+        dist[self.mapping.get(langA)] = 0
+        queue.append(self.mapping.get(langA))
 
-                path.append(self.mapping.get(item)) # appending value from mapping
-                visited[item] = True
+        while(len(queue)>0):
+            item = queue.pop(0)
+            for col in range(self.vertices):
+                if(self.edges[item][col] is not None and visited[col] is False):
+                    visited[col] = True
+                    dist[col] = dist[item] + 1
+                    pred[col] = item
+                    queue.append(col)
 
-                for col in range(self.vertices):
-                    if visited[col] is False and self.edges[item][col] == 1:
-                        stack.append(col)
-
-            return self.dfs(stack, visited, path, langB)
-        else:
-            return False
+                    if(self.mapping.get(col) == langB):
+                        return True
+        return False
 
     def findTransRelation(self, langA, langB):
         output_result_list = []
@@ -153,28 +160,35 @@ class Interpreter:
         output_result_list.append('LanguageA: '+ langA)
         output_result_list.append('LanguageB: ' + langB)
 
-        # use dfs to iterate
-        visited = [False]*self.vertices # to keep track of which of the vertices
-        stack = [] # dfs
-        path = [] # to track the path through vertices
-        stack.append(self.mapping.get(langA))
+        pred = [0] * self.vertices
+        dist = [0] * self.vertices
 
-        found = self.dfs(stack, visited, path, langB)
-        path_string = None
-        if found:
-            for val in path:
+        if (self.__bfs(pred, dist, langA, langB) is False):
+            output_result_list.append('Related: No, ')
+        else:
+            path = []
+            crawl = self.mapping.get(langB)
+
+            path.append(self.mapping.get(crawl))
+            while(pred[crawl]!= -1):
+                path.append(self.mapping.get(pred[crawl]))
+                crawl = pred[crawl]
+
+            path_string = None
+            while(len(path)>0):
+                val = path.pop()
                 if path_string is None:
                     path_string = str(val)
                 else:
                     path_string = path_string + '>'+ val
+
             output_result_list.append('Related: Yes, '+ path_string)
-        else:
-            output_result_list.append('Related: No, ')
+
         output_result_list.append('-----------------------------------------')
         # write to output file
         self.utils.writeToOutputFile(output_result_list)
 
-    def findMinimumInterpreters(self, stack, visited, languages, all_language_covered, hirelist):
+    def __findMinimumInterpreters(self, stack, visited, languages, all_language_covered, hirelist):
         while(len(stack)>0):
             item = stack.pop()
             if(visited[item] is False):
@@ -186,20 +200,20 @@ class Interpreter:
                             if(self.mapping.get(item) not in hirelist):
                                 hirelist.append(self.mapping.get(item))
                         else:
-                            # its an interpreter
+                            # it's an interpreter
                             stack.append(col)
                 if(len(all_language_covered)<1):
                     return
             else:
-                self.findMinimumInterpreters(stack, visited, languages, all_language_covered, hirelist)
+                self.__findMinimumInterpreters(stack, visited, languages, all_language_covered, hirelist)
 
     def displayHireList(self):
         # dfs , graph greedy method prims or kruskal
         output_result_list = []
         output_result_list.append('--------Function displayHireList--------')
 
-        languages = list(self.getAllLanguages())
-        all_language_covered = list(self.getAllLanguages())
+        languages = list(self.__getAllLanguages())
+        all_language_covered = list(self.__getAllLanguages())
         visited = [False]*self.vertices # to track track of visited vertex
         hireList = [] # to keep count of interpreters
         stack = []
@@ -207,7 +221,7 @@ class Interpreter:
         for val in range(self.vertices):
             if(self.mapping.get(val) in self.interpreters and visited[val] is False):
                 stack.append(val)
-                self.findMinimumInterpreters(stack, visited, languages, all_language_covered, hireList)
+                self.__findMinimumInterpreters(stack, visited, languages, all_language_covered, hireList)
 
         output_result_list.append('No of candidates required to cover all languages: ' + str(len(hireList)))
         for hire in hireList:
@@ -220,4 +234,3 @@ class Interpreter:
         output_result_list.append('-----------------------------------------')
         # write to output file
         self.utils.writeToOutputFile(output_result_list)
-

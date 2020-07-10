@@ -29,8 +29,8 @@ class Interpreter:
     utils: we need this class to write to file and read from file
     """
     def __init__(self, vertices):
-        self.vertices = vertices # list containing languages and interpreter
-        self.edges = [ [ None for i in range(vertices) ] for j in range(vertices) ] # adjency matrix of edges linking interpreters to languages
+        self.vertices = vertices # total number of vertices
+        self.graph = [[None for i in range(vertices)] for j in range(vertices)] # adjency matrix of edges linking interpreters to languages
         self.interpreters = [] # need to maintain since vertices contain both the langauge and interpreter
         self.mapping = {} # mapping vertices to integer value
         self.utils = Utils()
@@ -38,8 +38,8 @@ class Interpreter:
     # since the graph is undirected, for each src and dest, we create the mapping.
     def __addEdges(self, src, dest):
         # undirected graph, hence adding to both the ends
-        self.edges[src][dest] = 1
-        self.edges[dest][src] = 1
+        self.graph[src][dest] = 1
+        self.graph[dest][src] = 1
 
     """
     we populate the matrix here.
@@ -55,7 +55,7 @@ class Interpreter:
                 this is created for each vertex
     we create the adjacency matrix by calling __addEdges method
     """
-    def populateAdjacencyMatrixFromInputFile(self, filepath):
+    def readApplications(self, filepath):
         data = self.utils.readFromInputFile(filepath)
         index = 0 # used for mapping
         for line in data:
@@ -141,10 +141,10 @@ class Interpreter:
     def displayCandidates(self, lang):
         output_result_list = []
         list = [] #store all the candidate who can speak language queried for.
-        index = self.mapping.get(lang)
-        for row in range(self.vertices):
-            if(self.edges[index][row] is not None):
-                list.append(self.mapping.get(row))
+        row = self.mapping.get(lang)
+        for col in range(self.vertices):
+            if(self.graph[row][col] is not None):
+                list.append(self.mapping.get(col))
 
         output_result_list.append('--------Function displayCandidates--------')
         output_result_list.append('List of Candidates who can speak '+ lang +':')
@@ -173,14 +173,14 @@ class Interpreter:
         result = None
         row = self.mapping.get(langA)
         for column in range(self.vertices):
-            if(self.edges[row][column] is not None):
+            if(self.graph[row][column] is not None):
                 stack.append(column)
 
         while len(stack)>0:
             item = stack.pop()
             # we need to just check whether the connected vertices has langB
             for col in range(self.vertices):
-                if(self.edges[item][col] is not None and self.mapping.get(col) == langB):
+                if(self.graph[item][col] is not None and self.mapping.get(col) == langB):
                     result = self.mapping.get(item)
                     break
 
@@ -220,7 +220,7 @@ class Interpreter:
         while(len(queue)>0):
             item = queue.pop(0)
             for col in range(self.vertices):
-                if(self.edges[item][col] is not None and visited[col] is False):
+                if(self.graph[item][col] is not None and visited[col] is False):
                     visited[col] = True
                     dist[col] = dist[item] + 1
                     pred[col] = item
@@ -285,7 +285,7 @@ class Interpreter:
             if(visited[item] is False):
                 visited[item] = True
                 for col in range(self.vertices):
-                    if(self.edges[item][col] is not None):
+                    if(self.graph[item][col] is not None):
                         if(self.mapping.get(col) in languages and self.mapping.get(col) in all_language_covered):
                             all_language_covered.pop(all_language_covered.index(self.mapping.get(col)))
                             if(self.mapping.get(item) not in hirelist):
@@ -299,7 +299,7 @@ class Interpreter:
                 self.__findMinimumInterpreters(stack, visited, languages, all_language_covered, hirelist)
 
     """
-    This method takes care of getting the minimal hirelist who can cover all the languages.
+    This method takes care of getting the minimal hirelist those can cover all the languages.
     it internally calls __findMinimumInterpreters and get all the hirelist
     once we get the hirelist, we iterate for item for all the cols and if the value is not None
     we populate it to list
@@ -324,7 +324,7 @@ class Interpreter:
         for hire in hireList:
             language_known = []
             for col in range(self.vertices):
-                if(self.edges[self.mapping.get(hire)][col] is not None):
+                if(self.graph[self.mapping.get(hire)][col] is not None):
                     language_known.append(self.mapping.get(col))
             output_result_list.append(hire + ' / ' + ' / '.join(language_known))
 

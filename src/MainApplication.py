@@ -34,7 +34,7 @@ class MainApplication:
         return len(set(result))
 
     """
-    pre-requisite: we know the count of vertex, now we need to create adjacency matrix, which we doing on line 46
+    pre-requisite: we know the count of vertex, now we need to create adjacency matrix, which we doing on line 47
     this is the exceute method, which reads the task from the prompt file and, execute the method from interpreter class
     object : this is the object created for interpreter
     commandList : this is the list containing all the commands we need to execute.
@@ -44,7 +44,7 @@ class MainApplication:
     TransRelation: English : Malayalam
     """
     def executeMethodForObject(self, object, commandList):
-        object.populateAdjacencyMatrixFromInputFile('../resources/Sample inputPS7.txt')
+        object.readApplications('../resources/Sample inputPS7.txt')
         object.showAll()
         for val in commandList:
             if('showMinList' in val):

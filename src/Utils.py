@@ -5,12 +5,9 @@ readFromInputFile
 """
 class Utils:
 
-    def __init__(self):
-        self.filepath = '../resources/Sample outputPS7.txt'
-
     # Given a list, writes to file
-    def writeToOutputFile(self, data):
-        with open(self.filepath, 'a') as file:
+    def writeToOutputFile(self, filepath, data):
+        with open(filepath, 'a') as file:
             for line in data:
                 file.write(line + '\n')
             file.write('\n\n')

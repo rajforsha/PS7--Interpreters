@@ -1,0 +1,6 @@
+bornIn: 1990
+diedIn: 1990
+maxPopulation:
+minPopulation:
+maxBirth:
+maxDeath:

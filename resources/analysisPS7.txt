@@ -1,0 +1,28 @@
+MainApplication:
+    functions:
+        readPromptFileAndReturnList: O(N)
+        getTotalvertices: O(N^2)
+        executeMethodForObject: internally makes use of Interpreter.readApplications which takes O(n^2)
+
+
+Interpreter:
+    functions:
+        __addEdges: O(2) constant time
+        readApplications: O(N^2)
+            one loop for reading the lines of files and other for iterating through each of the values of lines
+            and fill the matrix
+        __getAllLanguages: O(N)
+        showAll: O(n)+O(n) = O(2N)
+        displayCandidates: O(N), just need to iterate for all the columns
+        findDirectTranslator: for each langA, we are getting the candidates and then we are iterating for each candidate for
+                                all the columns and matching with the langB
+
+                                O(N)+O(N^2)= O(N^2)
+        __bfs: this is the modified version of breadth first search. O(V+E)
+        findTransRelation: this internally makes use of __bfs
+                            O(V+E) + O(N) + O(N) = O(N)
+
+        __findMinimumInterpreters: this is private method internally making use of depth first search.
+                                    O(V+E)
+        displayHireList: this method internally makes use of __findMinimumInterpreters.
+                            O(N) + O(V+E) = O(N)

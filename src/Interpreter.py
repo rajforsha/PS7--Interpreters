@@ -8,7 +8,7 @@ __getAllLanguages
 __bfs
 __findMinimumInterpreters
 public methods:
-populateAdjacencyMatrixFromInputFile
+readApplications
 showAll
 displayCandidates
 findDirectTranslator

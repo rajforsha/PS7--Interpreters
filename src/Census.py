@@ -1,4 +1,5 @@
 from Utils import Utils
+import sys
 
 class Census:
 
@@ -8,6 +9,7 @@ class Census:
         self.death_dist = {}
         self.pop_dist = {}
         self.total_records = 0
+        self.outputResultList = []
         self.input_filepath = './inputPS3.txt'
         self.output_filepath = './outputPS3.txt'
         self.prompt_filePath = './promptsPS3.txt'
@@ -40,10 +42,7 @@ class Census:
                 self.__updateMap(self.death_dist, death_year)
                 self.__updateMap(self.pop_dist, death_year, '-')
 
-        outputResultList = []
-        outputResultList.append(str(self.total_records) + 'records captured.')
-        # write to output file
-        self.utils.writeToOutputFile(self.output_filepath, outputResultList)
+        self.outputResultList.append(str(self.total_records) + 'records captured.')
 
     def __updateMap(self, dist, key, flag = '+'):
 
@@ -61,17 +60,53 @@ class Census:
                 dist[key] = -1
 
     def countBorn(self, dict, year):
-        outputResultList = []
-        outputResultList.append('No. of people born in' + str(year) + ':'+ str(dict.get(year)))
-        # write to output file
-        self.utils.writeToOutputFile(self.output_filepath, outputResultList)
+        self.outputResultList.append('No. of people born in' + str(year) + ':'+ str(dict.get(year)))
 
     def countDied(self, dict, year):
-        outputResultList = []
-        outputResultList.append('No. of people died in' + str(year) + ':' + str(dict.get(year)))
-        # write to output file
-        self.utils.writeToOutputFile(self.output_filepath, outputResultList)
+        self.outputResultList.append('No. of people died in' + str(year) + ':' + str(dict.get(year)))
 
+    def maxPop(self, dict):
+        year, max = self.__findMax(dict)
+        self.outputResultList.append('Maximum population was in year ' + str(year)+ ' with ' + str(max)+ ' people alive.')
+
+    def minPop(self, dict):
+        year, min = self.__findMin(dict)
+        self.outputResultList.append('Minimum population was in year ' + str(year) + ' with ' + str(min) + ' people alive.')
+
+    def maxBirth(self, dict):
+        year, max = self.__findMax(dict)
+        self.outputResultList.append('Maximum births were in year ' + str(year) + ' with ' + str(max) + ' people born.')
+
+    def maxDeath(self, dict):
+        year, max = self.__findMax(dict)
+        self.outputResultList.append('Maximum deaths were in year ' + str(year) + ' with ' + str(max) + ' people dead.')
+
+    def printOutput(self):
+        # write to output file
+        self.utils.writeToOutputFile(self.output_filepath, self.outputResultList)
+
+    def __findMax(self, dict):
+        return self.__findMinMax(dict, '+')
+
+    def __findMin(self, dict):
+        return self.__findMinMax(dict, '_')
+
+
+    def __findMinMax(self, dict, flag):
+        # + for max and - for min
+        year = None
+        value = sys.maxsize if flag == '-' else -sys.maxsize
+        for k, v in dict.items():
+            if flag == '+':
+                if (v > value):
+                    value = v
+                    year = k
+            else:
+                if (v > value):
+                    value = v
+                    year = k
+
+        return year, value
 
 if __name__ == '__main__':
     ob = Census()
@@ -85,6 +120,16 @@ if __name__ == '__main__':
         elif 'diedIn' in command:
             values = command.split(':')
             ob.countBorn(ob.death_dist, values[1])
+        elif 'maxPopulation' in command:
+            ob.maxPop(ob.pop_dist)
+        elif 'minPopulation' in command:
+            ob.minPop(ob.pop_dist)
+        elif 'maxBirth' in command:
+            ob.maxBirth(ob.birth_dist)
+        elif 'maxDeath' in command:
+            ob.maxDeath(ob.death_dist)
         else:
             print('invalid command')
 
+    # finally we write the output to file
+    ob.printOutput()

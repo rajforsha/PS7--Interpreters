@@ -1,6 +1,13 @@
 # PS7--Interpreters-
 
 
+#MainApplication.py
+ - is the stating point of this assignment.
+#Interpreter.py
+ - is internally used by MainApplication.py
+#Util.py 
+- is the utility class to read/write to file.
+
 #backup print method
 
     """def printGraph(self):

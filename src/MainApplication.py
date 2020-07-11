@@ -8,8 +8,8 @@ class MainApplication:
     # we are initializing application with the path to input and prompt file.
     def __init__(self):
         self.utils = Utils()
-        self.inputFile = '../resources/Sample inputPS7.txt'
-        self.promptFile = '../resources/Sample promptsPS7.txt'
+        self.inputFile = './inputPS7.txt'
+        self.promptFile = './promptsPS7.txt'
 
     # we are using out util class to read the inout file and return the contents as lines
     def readPromptFileAndReturnList(self):

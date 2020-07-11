@@ -6,7 +6,7 @@ readFromInputFile
 class Utils:
 
     def __init__(self):
-        self.filepath = '../resources/Sample outputPS7.txt'
+        self.filepath = './outputPS7.txt'
 
     # Given a list, writes to file
     def writeToOutputFile(self, data):

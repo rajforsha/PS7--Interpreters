@@ -1,11 +1,9 @@
-2records captured.
-No. of people born in 1990
-:None
-No. of people born in 1990
-:None
-Maximum population was in year 1930 with 1 people alive.
-Minimum population was in year 1930 with 1 people alive.
-Maximum births were in year 1930 with 1 people born.
-Maximum deaths were in year 2000 with 1 people dead.
+8records captured.
+No. of people born in1990:2
+No. of people died in1990:1
+Maximum population was in year 1930 with 2 people alive.
+Minimum population was in year 2000 with -3 people alive.
+Maximum births were in year 1930 with 2 people born.
+Maximum deaths were in year 2000 with 3 people dead.
 
 

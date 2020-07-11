@@ -24,10 +24,10 @@ class Census:
                  dod = data[3]
 
             # extract year of birth and death
-            birth_year = int(dob.split('-')[2])
+            birth_year = int(dob.strip().split('-')[2])
             death_year = None
             if(dod is not None and len(dod)> 1):
-                death_year = int(dod.split('-')[2])
+                death_year = int(dod.strip().split('-')[2])
 
             # we need to look for each map and update the value
 
@@ -102,7 +102,7 @@ class Census:
                     value = v
                     year = k
             else:
-                if (v > value):
+                if (v < value):
                     value = v
                     year = k
 
@@ -115,11 +115,11 @@ if __name__ == '__main__':
     command_list = ob.utils.readFromInputFile(ob.prompt_filePath)
     for command in command_list:
         if 'bornIn' in command:
-            values = command.split(':')
-            ob.countBorn(ob.birth_dist, values[1])
+            values = command.strip('\n').split(':')
+            ob.countBorn(ob.birth_dist, int(values[1].strip()))
         elif 'diedIn' in command:
-            values = command.split(':')
-            ob.countBorn(ob.death_dist, values[1])
+            values = command.strip('\n').split(':')
+            ob.countDied(ob.death_dist, int(values[1].strip()))
         elif 'maxPopulation' in command:
             ob.maxPop(ob.pop_dist)
         elif 'minPopulation' in command:

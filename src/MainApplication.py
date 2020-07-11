@@ -44,7 +44,7 @@ class MainApplication:
     TransRelation: English : Malayalam
     """
     def executeMethodForObject(self, object, commandList):
-        object.readApplications('../resources/Sample inputPS7.txt')
+        object.readApplications('./inputPS7.txt')
         object.showAll()
         for val in commandList:
             if('showMinList' in val):

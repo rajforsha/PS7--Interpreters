@@ -89,7 +89,7 @@ class Census:
         return self.__findMinMax(dict, '+')
 
     def __findMin(self, dict):
-        return self.__findMinMax(dict, '_')
+        return self.__findMinMax(dict, '-')
 
 
     def __findMinMax(self, dict, flag):

@@ -66,11 +66,30 @@ class Census:
         self.outputResultList.append('No. of people died in' + str(year) + ':' + str(dict.get(year)))
 
     def maxPop(self, dict):
-        year, max = self.__findMax(dict)
+        # need to find year with max population
+        keys = sorted(dict.keys())
+        year = None
+        max = -sys.maxsize
+        current_value = 0
+        for key in keys:
+            current_value += dict.get(key)
+            if(current_value > max):
+                max = current_value
+                year = key
+
         self.outputResultList.append('Maximum population was in year ' + str(year)+ ' with ' + str(max)+ ' people alive.')
 
     def minPop(self, dict):
-        year, min = self.__findMin(dict)
+        # need to find year with min population
+        keys = sorted(dict.keys())
+        year = None
+        min = sys.maxsize
+        current_value = 0
+        for key in keys:
+            current_value += dict.get(key)
+            if (current_value < min):
+                min = current_value
+                year = key
         self.outputResultList.append('Minimum population was in year ' + str(year) + ' with ' + str(min) + ' people alive.')
 
     def maxBirth(self, dict):
